@@ -173,7 +173,7 @@ pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyri
 # write the server we used to get the keys for program integrity to this location
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 # copy recursively the script directory and the mirror list
-cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
+cp -R ${SCRIPT_DIR} /mnt/root/archscript
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlis
 
 # genarate file system table aka fstab 

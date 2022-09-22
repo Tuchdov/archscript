@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # read and execute the content of the file
-source $HOME/ArchTitus/configs/setup.conf
+source $HOME/archscript/configs/setup.conf
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -85,7 +85,7 @@ echo -ne "
 # sed $INSTALL_TYPE is using install type to check for MINIMAL installation, if it's true, stop
 # stop the script and move on, not installing any more packages below that line.
 if [[ ! $DESKTOP_ENV == server ]]; then # If the environment is not the server envorinment
-  sed -n '/'$INSTALL_TYPE'/q;p' $HOME/ArchTitus/pkg-files/pacman-pkgs.txt | while read line
+  sed -n '/'$INSTALL_TYPE'/q;p' $HOME/archscript/pkg-files/pacman-pkgs.txt | while read line
   do
     if [[ ${line} == '--END OF MINIMAL INSTALL--' ]]; then
       # If selected installation type is FULL, skip the --END OF THE MINIMAL INSTALLATION-- line
@@ -138,7 +138,7 @@ fi
 
 # IF SETUP IS WRONG RUN THIS
 # note: this is a long if statement
-if ! source $HOME/ArchTitus/configs/setup.conf; then
+if ! source $HOME/archscript/configs/setup.conf; then
   # loop through user input until the user gives a valid username
   while true
   do
@@ -153,11 +153,11 @@ if ! source $HOME/ArchTitus/configs/setup.conf; then
   done
 
 # convert name to lowercase before saving to setup.conf
-echo "username=${username,,}" >> ${HOME}/ArchTitus/configs/setup.conf
+echo "username=${username,,}" >> ${HOME}/archscript/configs/setup.conf
 
 # set password
   read -p "Please enter password:" password
-echo "password=${password,,}" >> ${HOME}/ArchTitus/configs/setup.conf
+echo "password=${password,,}" >> ${HOME}/archscript/configs/setup.conf
   # Loop through user input until the user gives a valid hostname, but allow the user to force save 
   while true
   do 
@@ -174,7 +174,7 @@ echo "password=${password,,}" >> ${HOME}/ArchTitus/configs/setup.conf
       break
     fi
   done
-echo "NAME_OF_MACHINE=${name_of_machine,,}" >> ${HOME}/ArchTitus/configs/setup.conf
+echo "NAME_OF_MACHINE=${name_of_machine,,}" >> ${HOME}/archscript/configs/setup.conf
 fi
 
 echo -ne "
@@ -196,11 +196,11 @@ if [ $(whoami) = root]; then
   echo "$USERNAME:$PASSWORD" | chpasswd
   echo "$USERNAME password set"
 
-  # copy all files from Archtitus to the new username
-  cp -R $HOME/Archtitus /home/$USERNAME
+  # copy all files from archscript to the new username
+  cp -R $HOME/archscript /home/$USERNAME
   # change the owner of all the files to te new username
-  chown -R $USERNAME: /home/$USERNAME/ArchTitus
-  echo "ArchTitus copied to home directory"
+  chown -R $USERNAME: /home/$USERNAME/archscript
+  echo "archscript copied to home directory"
 
 # write $NAME_OF_MACHINE to /etc/hostname
   echo $NAME_OF_MACHINE > /etc/hostname

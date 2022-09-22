@@ -3,7 +3,7 @@ echo -ne "
 Final Setup and Configurations
 GRUB EFI Bootloader Install & Check
 "
-source ${HOME}/ArchTitus/configs/setup.conf
+source ${HOME}/archscript/configs/setup.conf
 
 # if this is an efi system install grub on the efi directory
 
@@ -31,7 +31,7 @@ THEME_NAME=CyberRe
 echo -e "Creating the theme directory..."
 mkdir -p "${THEME_DIR}/${THEME_NAME}"
 echo -e "Copying the theme..."
-cd ${HOME}/ArchTitus
+cd ${HOME}/archscript
 cp -a configs${THEME_DIR}/${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
 echo -e "Backing up Grub config..."
 cp -an /etc/default/grub /etc/default/grub.bak
@@ -106,11 +106,11 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 
-SNAPPER_CONF="$HOME/ArchTitus/configs/etc/snapper/configs/root"
+SNAPPER_CONF="$HOME/archscript/configs/etc/snapper/configs/root"
 mkdir -p /etc/snapper/configs/
 cp -rfv ${SNAPPER_CONF} /etc/snapper/configs/
 
-SNAPPER_CONF_D="$HOME/ArchTitus/configs/etc/conf.d/snapper"
+SNAPPER_CONF_D="$HOME/archscript/configs/etc/conf.d/snapper"
 mkdir -p /etc/conf.d/
 cp -rfv ${SNAPPER_CONF_D} /etc/conf.d/
 
@@ -122,7 +122,7 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 # plymouth makes an arch animation when you login
-PLYMOUTH_THEMES_DIR="$HOME/ArchTitus/configs/usr/share/plymouth/themes"
+PLYMOUTH_THEMES_DIR="$HOME/archscript/configs/usr/share/plymouth/themes"
 PLYMOUTH_THEME="arch-glow" # can grab from config later if we allow selection
 mkdir -p /usr/share/plymouth/themes
 echo 'Installing Plymouth theme...'
@@ -149,8 +149,9 @@ sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: A
 sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
-rm -r $HOME/ArchTitus
-rm -r /home/$USERNAME/ArchTitus
+# remove the git directoy used to install the file
+rm -r $HOME/archscript
+rm -r /home/$USERNAME/archscript
 
 # Replace in the same state
 cd $pwd
