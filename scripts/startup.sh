@@ -86,11 +86,11 @@ select_option() {
     # little helpers for terminal print control and key input
     ESC=$( printf "\033")
     #  now we will define functions with one line only
-    cursor_blink_on()  { printf "$ESC[?25h"; }
-    cursor_blink_off() { printf "$ESC[?25l"; }
-    cursor_to()        { printf "$ESC[$1;${2:-1}H"; }
+    cursor_blink_on()  { printf "${ESC[?25h}"; }
+    cursor_blink_off() { printf "${ESC[?25l}"; }
+    cursor_to()        { printf "${ESC[$1;${2:-1}H}"; }
     print_option()     { printf "$2   $1 "; }
-    print_selected()   { printf "$2  $ESC[7m $1 $ESC[27m"; }
+    print_selected()   { printf "$2  ${ESC[7m} $1 ${ESC[27m}"; }
     get_cursor_row()   { IFS=';' read -sdR -p $'\E[6n' ROW COL; echo ${ROW#*[}; }
     get_cursor_col()   { IFS=';' read -sdR -p $'\E[6n' ROW COL; echo ${COL#*[}; }
     key_input()         {
