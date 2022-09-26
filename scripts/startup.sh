@@ -250,30 +250,34 @@ esac
 
 # set user's keyboard mapping
 keymap () {
-    echo -ne "
-    please select key board layout from this list"
-    # These are default key maps as presented in official arch repo archinstall
-    options = (us by ca cf cz de dk es et fa fi fr gr hu il it lt lv mk nl no pl ro ru sg ua uk)
+echo -ne "
+please select key board layout from this list"
+# These are default key maps as presented in official arch repo archinstall
+options=(us by ca cf cz de dk es et fa fi fr gr hu il it lt lv mk nl no pl ro ru sg ua uk)
 
-    select_option $? 4 "${options[@]}"  ## what are all this ${options[@]}?
-    keymap=${options{@}} ## they mean to use the array of words as elements seperated by spaces if we want it to be a single element we will use [*]
+select_option $? 4 "${options[@]}"  ## what are all this ${options[@]}?
+keymap=${options{$?}} ## they mean to use the array of words as elements seperated by spaces if we want it to be a single element we will use [*]
 
-    echo -ne "Your key boards layout: ${keymap} \n"
-    set_option KEYMAP $keymap
+echo -ne "Your key boards layout: ${keymap} \n"
+set_option KEYMAP $keymap
 }
 
    
 drivessd () {
-    echo -ne "
-    Is this an ssd? yes/no
-    "
-    options = ("Yes" "No")
-    select_option $? 1 "{$options[@]}"
+echo -ne "
+Is this an ssd? yes/no \n"
 
-    case ${options[$?]} in
-        y|Y|yes|Yes|YES)
-        set_option MOUNT_OPTIONS "noatime,compress=zstd,ssd,commit=120";;
-          n|N|no|NO|No)
+options=("Yes" "No")
+select_option $? 1 "${options[@]}"
+
+case ${options[$?]} in
+    y|Y|yes|Yes|YES)
+    set_option MOUNT_OPTIONS "noatime,compress=zstd,ssd,commit=120";;
+    n|N|no|NO|No)
+    set_option MOUNT_OPTIONS "noatime,compress=zstd,commit=120";;
+    *) echo "Wrong option. Try again";drivessd;;
+esac
+
 }
 
 
