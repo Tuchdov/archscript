@@ -87,7 +87,7 @@ select_option() {
     ESC=$( printf "\033")
     #  now we will define functions with one line only
     cursor_blink_on()  { printf "${ESC[?25h}"; }
-    cursor_blink_off() { printf "${ESC[?25l}"; }
+    cursor_blink_off() { printf "$ESC[?25l"; }
     cursor_to()        { printf "${ESC[$1;${2:-1}H}"; }
     print_option()     { printf "$2   $1 "; }
     print_selected()   { printf "$2  ${ESC[7m} $1 ${ESC[27m}"; }
