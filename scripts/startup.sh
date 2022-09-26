@@ -242,7 +242,7 @@ case ${options[$?]} in
     n|N|no|No|NO)
     echo "Please enter your desired timezome e.g Europe/London :"
     read new_timezone
-    echo "${new_timezone} set as timezone";;
+    echo "${new_timezone} set as timezone"
     set_option TIMEZONE $new_timezone;;
     *) echo "Wrong option. Try again"; timezone;;
 esac
