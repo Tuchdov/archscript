@@ -16,7 +16,7 @@ echo -ne "
 "
     ( bash $MAIN_DIR/scripts/startup.sh )|& tee startup.login
     source $CONFIGS_DIR/setup.conf
-    ( bash $SCRIPT_DIR/scripts/0-preinstall.sh)|& tee 0-preinstall.log
+    ( bash $MAIN_DIR/scripts/0-preinstall.sh)|& tee 0-preinstall.log
     (arch-chroot /mnt $HOME/archscript/scripts/1-setup.sh )|& tee 1-setup.log
     if [[ ! $DESKTOP_ENV == server ]]; then
       ( arch-chroot /mnt /usr/bin/runuser -u $USERNAME -- /home/$USERNAME/archscript/scripts/2-aur_de.sh )|& tee 2-aur.log
