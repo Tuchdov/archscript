@@ -323,8 +323,14 @@ aurhelper () {
 desktopenv () {
   # Let the user choose Desktop Enviroment from predefined list
   echo -ne "Please select your desired Desktop Enviroment:\n"
-  # You can also do for loops
-  IFS=" " read -r -A options <<< "$(for f in pkg-files/*.txt; do echo "$f" | sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done)"
+ # You can also do for loops
+ # output of a line with multiple words
+
+ # For bash, uses temporary file
+ # IFS=" " read -r -a options <<< "$(for f in pkg-files/*.txt; do echo "$f" | sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done)"
+ # For bash 4.2+ with the lastpipe option enabled (may require disabling monitor mode)
+  options=()
+  eval "$(for f in pkg-files/*.txt; do echo "$f"| sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done)"| IFS=" " read -r -a options
  # options=($(for f in pkg-files/*.txt; do echo "$f" | sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done))
   select_option $? 4 "${options[@]}"
   desktop_env=${options[$?]}
