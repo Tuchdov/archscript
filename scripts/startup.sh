@@ -255,7 +255,7 @@ please select key board layout from this list"
 options=(us by ca cf cz de dk es et fa fi fr gr hu il it lt lv mk nl no pl ro ru sg ua uk)
 
 select_option $? 4 "${options[@]}"  ## what are all this ${options[@]}?
-keymap=${options{$?}} ## they mean to use the array of words as elements seperated by spaces if we want it to be a single element we will use [*]
+keymap=${options[$?]} ## they mean to use the array of words as elements seperated by spaces if we want it to be a single element we will use [*]
 
 echo -ne "Your key boards layout: ${keymap} \n"
 set_option KEYMAP $keymap
