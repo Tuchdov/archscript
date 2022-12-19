@@ -145,8 +145,8 @@ select_option() {
 
     # determine current screen position for overwriting the options
     local return_value=$1
-    local lastrow='get_cursor_row'
-    local lastcol='get_cursor_col'
+    local lastrow=$(get_cursor_row)
+    local lastcol=$(get_cursor_col)
     local startrow=$(($lastrow - $#))
     local startcol=1
     local lines=$( tput lines )
@@ -166,7 +166,7 @@ select_option() {
     while true; do
         print_options_multicol $active_col $active_row 
         # user key control
-        case 'key_input' in
+        case $(key_input) in
             enter)  break;;
             up)     ((active_row--));
                     if [ $active_row -lt 0 ]; then active_row=0; fi;;
@@ -329,9 +329,9 @@ desktopenv () {
  # For bash, uses temporary file
  # IFS=" " read -r -a options <<< "$(for f in pkg-files/*.txt; do echo "$f" | sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done)"
  # For bash 4.2+ with the lastpipe option enabled (may require disabling monitor mode)
-  options=()
-  eval "$(for f in pkg-files/*.txt; do echo "$f"| sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done)"| IFS=" " read -r -a options
- # options=($(for f in pkg-files/*.txt; do echo "$f" | sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done))
+  #options=( awesome kde xfce server)
+#   for f in pkg-files/*.txt; do echo "$f"| sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done| IFS=" " read -r -a options
+  options=($(for f in pkg-files/*.txt; do echo "$f" | sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done))
   select_option $? 4 "${options[@]}"
   desktop_env=${options[$?]}
   set_option DESKTOP_ENV $desktop_env
