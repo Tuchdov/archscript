@@ -4,10 +4,11 @@
 
 
 # source command is used to read and execute the content of the file
-source $configs_dir/setup.conf
+source $CONFIGS_DIR/setup.conf
 
 # get the country iso from the ip the user
-iso = curl( -4 ifconfig.co/country-iso)
+iso = $(curl -4 ifconfig.co/country-iso)
+
 
 # enable setting time and date from online sources
 timedatectl set-ntp true 
