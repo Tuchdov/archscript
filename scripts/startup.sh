@@ -315,7 +315,7 @@ aurhelper () {
     echo -ne "Please enter your desired AUR helper:\n"
     options=(paru yay picaur aura trizen pacaur none)
     select_option $? 4 "${options[@]}"
-    aur_helper=${options[@]}
+    aur_helper=${options[$?]}
     set_option AUR_HELPER $aur_helper
 }
 
@@ -324,7 +324,7 @@ desktopenv () {
   # Let the user choose Desktop Enviroment from predefined list
   echo -ne "Please select your desired Desktop Enviroment:\n"
   # You can also do for loops
-  options=( $(for f in pkg-files/*.txt; do echo "$f" | sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done))
+  options=( 'for f in pkg-files/*.txt; do echo "$f" | sed -r "s/.+\/(.+)\..+/\1/;/pkgs/d"; done')
   select_option $? 4 "${options[@]}"
   desktop_env=${options[$?]}
   set_option DESKTOP_ENV $desktop_env
